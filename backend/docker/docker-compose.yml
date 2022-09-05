@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  mssqldb:
+    container_name: mssqldb
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    user: root
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=User1234
+      - MSSQL_PID=Express
+      - MSSQL_DB=dbGuane
+    ports:
+      - 1435:1433
+    volumes:
+     - db:/var/opt/mssql/
+    networks:
+      proyecto_guane:
+        aliases:
+          - mssqldb
+  app:
+    image: db_service
+    container_name: db_service
+    depends_on:
+      - mssqldb
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    command: npm run start
+    environment:
+      - PORT=3000
+      - DB_USER=SA
+      - DB_PASSWORD=User1234
+      - DB_NAME=dbGuane
+      - DB_HOST=mssqldb
+      - DB_DIALECT=mssql
+    networks:
+      proyecto_guane:
+        aliases:
+          - db_service
+    volumes:
+      - ../:/usr/src/
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+volumes:
+  db:
+networks:
+  proyecto_guane:
+    external: true

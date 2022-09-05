@@ -21,10 +21,7 @@ class TransactionService extends BaseService {
             })
                 .then((data) => {
                     if (data) {
-                        res.status(201).json({
-                            success: true,
-                            detail: 'object deleted'
-                        });
+                        res.status(204).json();
                     } else {
                         const response = { success: false, detail: 'Object not found' };
                         res.status(404).json(response);

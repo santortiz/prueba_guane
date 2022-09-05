@@ -12,7 +12,6 @@ const Transaction = sequelize.define('transaction', {
 
     count: {
         type: Sequelize.INTEGER,
-        unique:true,
         allowNull:false
     },
 

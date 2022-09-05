@@ -34,6 +34,7 @@ services:
       - DB_NAME=dbGuane
       - DB_HOST=mssqldb
       - DB_DIALECT=mssql
+      - FORCE=false
     networks:
       proyecto_guane:
         aliases:

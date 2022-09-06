@@ -3,7 +3,7 @@ const UserXEnterpriseService = require('./../../services/userXEnterprise');
 
 route.get('/', UserXEnterpriseService.list);
 
-route.get('/:enterprise_id/:user_document', UserXEnterpriseService.get);
+route.get('/where', UserXEnterpriseService.get);
 
 route.post('/', UserXEnterpriseService.create);
 

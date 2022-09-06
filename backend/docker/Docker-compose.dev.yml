@@ -1,0 +1,28 @@
+version: "3.2"
+
+services:
+  prueba-backend-service:
+    container_name: backend
+    image: prueba-backend
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8005
+    volumes:
+      - ../:/usr/src/app/
+    ports:
+      - 8005:8005
+      - 10000:10000
+    environment:
+      - DEBUGGER=False
+      - WEB_APP_VERSION=0.0.0
+      - WEP_APP_TITLE=prueba backend
+      - WEP_APP_DESCRIPTION= prueba inicio tiempo completo guane
+      - ENVIRONMENT=dev
+    # networks:
+    #   - thori-celsia
+    network_mode: "host"
+
+# networks:
+#   thori-celsia:
+#     external: true

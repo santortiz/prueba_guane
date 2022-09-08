@@ -19,10 +19,10 @@ services:
       - WEP_APP_TITLE=prueba backend
       - WEP_APP_DESCRIPTION= prueba inicio tiempo completo guane
       - ENVIRONMENT=dev
-    # networks:
-    #   - thori-celsia
-    network_mode: "host"
+      - PRUEBA_DATABASE=http://app:3000
+    networks:
+      - proyecto_guane
 
-# networks:
-#   thori-celsia:
-#     external: true
+networks:
+  proyecto_guane:
+    external: true

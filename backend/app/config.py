@@ -11,14 +11,9 @@ class Settings(BaseSettings):
         env="WEP_APP_DESCRIPTION",
     )
     ENVIRONMENT: str = Field("dev", env="ENVIRONMENT")
-    AT_PRONOSTICOS_DATABASE: str = Field("http://localhost:80")
-    AT_PRONOSTICOS_MIDDLEWARE: str = Field("http://celsia-middleware-service:4000")
-    AT_PRONOSTICOS_INFLUX: str = Field("http://20.186.165.95")
-    AZURE_BUCKET_NAME: str = Field("asb")
-    AT_PRONOSTICOS_REDIS: str = Field("")
-    AT_MPT: str = Field("")
     USERNAME: str = Field("root")
     PASSWORD: str = Field("root")
+    PRUEBA_DATABASE: str = Field("http://localhost:3000", env="PRUEBA_DATABASE")
 
 
 @lru_cache()

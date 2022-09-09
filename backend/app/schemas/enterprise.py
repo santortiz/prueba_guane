@@ -5,11 +5,12 @@ from pydantic import BaseModel
 
 
 class BaseEnterprise(BaseModel):
-    name : Optional[str]
-    nit : Optional[int]
+    name: Optional[str]
+    nit: Optional[int]
 
 class CreateEnterprise(BaseEnterprise):
-    pass
+    name: str
+    nit: int
 
 class UpdateEnterprise(BaseEnterprise):
     pass

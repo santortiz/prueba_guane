@@ -5,12 +5,14 @@ from pydantic import BaseModel, EmailStr
 
 
 class BaseUser(BaseModel):
-    document: Optional[str]
+    document: Optional[int]
     name: Optional[str]
-    email: EmailStr
+    email: Optional[EmailStr]
 
 class CreateUser(BaseUser):
-    pass
+    document: int
+    name: str
+    email: EmailStr
 
 class UpdateUser(BaseUser):
     pass

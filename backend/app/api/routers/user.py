@@ -2,10 +2,10 @@ from typing import List, Optional, Dict, Any
 
 from starlette.responses import Response
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, Depends
 from fastapi.responses import JSONResponse
 
-from app.schemas.user import CreateUser, UserInDb, UpdateUser
+from app.schemas.user import CreateUser, UserInDb, UpdateUser, PayloadUser
 from app.services.user import user_service
 
 router = APIRouter()
@@ -23,12 +23,12 @@ router = APIRouter()
 )
 async def get_all(
     *,
-    payload: Optional[Dict[str, Any]] = None,
+    payload: PayloadUser = Depends(PayloadUser),
     skip: int = Query(0),
     limit: int = Query(99999)
 ) -> Optional[List[UserInDb]]:
 
-    users = await user_service.get_all(payload=payload, skip= skip, limit=limit)
+    users = await user_service.get_all(payload=payload.dict(exclude_none=True), skip= skip, limit=limit)
     return users
 
 
@@ -80,7 +80,7 @@ async def create(
         404: {"description": "Object not found"},
     },
 )
-async def update_by_id(
+async def update_by_document(
     *,
     document: int,
     update_user: UpdateUser,

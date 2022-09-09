@@ -1,8 +1,7 @@
-
 from app.infra.services.base_service import BaseService
+from app.schemas.enterprise import CreateEnterprise, UpdateEnterprise
 
 from app.config import settings
-from app.schemas.enterprise import CreateEnterprise, UpdateEnterprise
 
 class EnterpriseService(BaseService[CreateEnterprise, UpdateEnterprise]):
     pass

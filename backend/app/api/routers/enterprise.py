@@ -23,7 +23,7 @@ router = APIRouter()
     }
 
 )
-async def get_all( #por el momento no tiene payload porque no entran query parameters
+async def get_all(
     *,
     payload: PayloadEnterprise= Depends(PayloadEnterprise),
     skip: int = Query(0),

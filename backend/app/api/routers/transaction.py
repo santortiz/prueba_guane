@@ -6,80 +6,80 @@ from fastapi import APIRouter, Query, Depends
 from fastapi.responses import JSONResponse
 
 
-from app.schemas.enterprise import CreateEnterprise, EnterpriseInDb, PayloadEnterprise, UpdateEnterprise
-from app.services.enterprise import enterprise_service
+from app.schemas.transaction import CreateTransaction, TransactionInDb, PayloadTransaction, UpdateTransaction
+from app.services.transaction import transaction_service
 
 
 router = APIRouter()
 
 @router.get(
     "",
-    response_model=List[EnterpriseInDb],
+    response_model=List[TransactionInDb],
     response_class=JSONResponse,
     status_code=200,
     responses= {
-        200: {"description": "Enterprise found"},
+        200: {"description": "Transaction found"},
         400: {"description": "Error during listing"}
     }
 
 )
 async def get_all(
     *,
-    payload: PayloadEnterprise= Depends(PayloadEnterprise),
+    payload: PayloadTransaction= Depends(PayloadTransaction),
     skip: int = Query(0),
     limit: int = Query(99999)
-) -> Optional[List[EnterpriseInDb]]:
+) -> Optional[List[TransactionInDb]]:
 
-    enterprises = await enterprise_service.get_all(payload=payload.dict(exclude_none=True), skip= skip, limit=limit)
-    return enterprises
+    transactions = await transaction_service.get_all(payload=payload.dict(exclude_none=True), skip= skip, limit=limit)
+    return transactions
 
 
 @router.get(
     "/{id}",
-    response_model=EnterpriseInDb,
+    response_model=TransactionInDb,
     response_class=JSONResponse,
     status_code=200,
     responses={
-        200: {"description": "Enterprise found"},
+        200: {"description": "Transaction found"},
         400: {"description": "Error during get by id"},
     },
 )
 async def get_by_id(
     *,
     id: int
-) -> Optional[EnterpriseInDb]:
+) -> Optional[TransactionInDb]:
     """
     """
-    enterprise = await enterprise_service.get_by_id(_id=id)
-    return enterprise
+    transaction = await transaction_service.get_by_id(_id=id)
+    return transaction
 
 
 @router.post(
     "",
-    response_model= EnterpriseInDb,
+    response_model= TransactionInDb,
     response_class=JSONResponse,
     status_code=201,
     responses= {
-        201 : {"description": "Enterprise created"},
+        201 : {"description": "Transaction created"},
         400 : {"description": "Error during creating"}
     }
 )
 async def create(
     *,
-    new_enterprise: CreateEnterprise
-) -> Optional[EnterpriseInDb]:
+    new_transaction: CreateTransaction
+) -> Optional[TransactionInDb]:
     """
 
     """
-    enterprise = await enterprise_service.create(obj_in=new_enterprise)
-    return enterprise
+    transaction = await transaction_service.create(obj_in=new_transaction)
+    return transaction
 
 @router.patch(
     "/{id}",
-    response_model=EnterpriseInDb,
+    response_model=TransactionInDb,
     status_code=201,
     responses={
-        201: {"description": "Enterprise updated"},
+        201: {"description": "Transaction updated"},
         404: {"description": "Error during update"},
         404: {"description": "Object not found"},
     },
@@ -87,13 +87,13 @@ async def create(
 async def update_by_id(
     *,
     id: int,
-    update_enterprise: UpdateEnterprise,
-) -> Optional[EnterpriseInDb]:
+    update_transaction: UpdateTransaction,
+) -> Optional[TransactionInDb]:
 
     """
     """
-    enterprise = await enterprise_service.update(_id=id, obj_in=update_enterprise)
-    return enterprise
+    transaction = await transaction_service.update(_id=id, obj_in=update_transaction)
+    return transaction
 
 
 @router.delete(
@@ -101,7 +101,7 @@ async def update_by_id(
     response_class=Response,
     status_code=204,
     responses={
-        204: {"description": "Enterprise deleted"},
+        204: {"description": "Transaction deleted"},
         400: {"description": "Error during deleting"},
         404: {"description": "Object not found"}
     },
@@ -112,5 +112,5 @@ async def delete(
 ) -> None:
     """
     """
-    await enterprise_service.delete(_id=id)
+    await transaction_service.delete(_id=id)
     return Response(status_code=204)

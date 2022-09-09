@@ -1,6 +1,16 @@
 const User = require('../infra/models/user');
+const UserXEnterprise = require('../infra/models/userXEnterprise');
 const BaseService = require('../infra/services/baseService');
 const { checkError } = require('../infra/services/database');
+
+
+const includeModels= [
+    {
+        model: UserXEnterprise,
+        as: 'user_x_enterprises',
+        where: {}
+    }
+]
 
 class UserService extends BaseService {
 
@@ -10,17 +20,27 @@ class UserService extends BaseService {
         let skip= 0;
         let limit= 100;
         skip= parseInt(filter.skip, 10);
-        delete filter.skip; // ¿Por qué se eliminan?
+        delete filter.skip;
         limit = parseInt(filter.limit, 10);
         delete filter.limit;
+
+        if (filter.enterprise_id) {
+            this.include[0].where['enterprise_id'] = filter.enterprise_id
+        } else {
+            this.include[0].where = {}
+        }
+        
+        delete filter.enterprise_id;
+
 
         try {
             await this.schema.findAll({
                 include: this.include,
+                where: filter,
                 offset: skip,
                 limit,
                 order: [
-                    ['updatedAt', 'DESC']
+                    ['updated_at', 'DESC']
                 ],
             }).then((data) => {
                 response= {
@@ -39,7 +59,7 @@ class UserService extends BaseService {
             console.log('Error list');
             console.log(error);
             response = {
-                data: { success: false, detail: 'Error getting sic codes' },
+                data: { success: false, detail: 'Error during listing' },
                 status: 400,
             };
         }
@@ -143,7 +163,7 @@ class UserService extends BaseService {
 
 }
 
-const service = new UserService(User);
+const service = new UserService(User, includeModels);
 module.exports = service;
 
 

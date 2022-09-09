@@ -4,11 +4,10 @@ from pydantic import BaseModel
 from fastapi.encoders import jsonable_encoder
 
 from app.infra.services.base_service import BaseService
-
-
+from app.schemas.user import CreateUser, UpdateUser
 
 from app.config import settings
-from app.schemas.user import CreateUser, UpdateUser
+
 
 
 UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)

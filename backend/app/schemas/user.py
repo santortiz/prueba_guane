@@ -18,7 +18,7 @@ class UpdateUser(BaseUser):
     pass
 
 class PayloadUser(BaseUser):
-    pass
+    enterprise_id: Optional[int]
 
 class UserInDb(BaseUser):
     created_at: Optional[datetime]

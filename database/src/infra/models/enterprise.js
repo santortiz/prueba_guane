@@ -20,6 +20,10 @@ const Enterprise = sequelize.define('enterprise', {
         type: Sequelize.INTEGER,
         allowNull: false
     }
+},{
+    timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
 })
 
 module.exports = Enterprise;

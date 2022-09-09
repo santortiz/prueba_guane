@@ -12,7 +12,7 @@ const UserXEnterprise = sequelize.define('userXEnterprise', {
     },
 
     user_document: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
             model: User,
@@ -40,7 +40,7 @@ UserXEnterprise.belongsTo(User,{
 
 User.hasMany(UserXEnterprise, {
     foreignKey: 'user_document',
-    as: 'user_x_enterprise_id'
+    as: 'user_x_enterprises'
 });
 
 UserXEnterprise.belongsTo(Enterprise,{
@@ -49,7 +49,7 @@ UserXEnterprise.belongsTo(Enterprise,{
 
 Enterprise.hasMany(UserXEnterprise,{
     foreignKey: 'enterprise_id',
-    as: 'user_x_enterprise_id'
+    as: 'user_x_enterprises'
 })
 
 

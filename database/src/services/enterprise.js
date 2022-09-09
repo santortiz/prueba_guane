@@ -39,7 +39,7 @@ class EnterpriseService extends BaseService {
             console.log('Error list');
             console.log(error);
             response = {
-                data: { success: false, detail: 'Error getting sic codes' },
+                data: { success: false, detail: 'Error listing' },
                 status: 400,
             };
         }

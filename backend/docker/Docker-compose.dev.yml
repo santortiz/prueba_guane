@@ -14,7 +14,7 @@ services:
       - 8005:8005
       - 10000:10000
     environment:
-      - DEBUGGER=false
+      - DEBUGGER=False
       - WEB_APP_VERSION=0.0.0
       - WEP_APP_TITLE=prueba backend
       - WEP_APP_DESCRIPTION= prueba inicio tiempo completo guane

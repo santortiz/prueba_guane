@@ -67,7 +67,7 @@ class BaseService(IServiceBase[CreateSchemaType, UpdateSchemaType]):
         skip: int = 0,
         limit: int = 99999,
         route: Optional[str] = "",
-    ) -> Any:
+    ) -> Any:   
         if payload:
             payload.update({"skip": skip, "limit": limit})
         else:

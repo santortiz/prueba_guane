@@ -6,7 +6,7 @@ from fastapi import APIRouter, Query, Depends
 from fastapi.responses import JSONResponse
 
 
-from app.schemas.transaction import CreateTransaction, TransactionInDb, PayloadTransaction, UpdateTransaction
+from app.schemas.transaction import CreateTransaction, TotalCount, TotalCountPayloadTransaction, TransactionInDb, PayloadTransaction, UpdateTransaction
 from app.services.transaction import transaction_service
 
 
@@ -21,7 +21,6 @@ router = APIRouter()
         200: {"description": "Transaction found"},
         400: {"description": "Error during listing"}
     }
-
 )
 async def get_all(
     *,
@@ -33,6 +32,25 @@ async def get_all(
     transactions = await transaction_service.get_all(payload=payload.dict(exclude_none=True), skip= skip, limit=limit)
     return transactions
 
+@router.get(
+    "/totalcount",
+    response_model=TotalCount,
+    response_class=JSONResponse,
+    status_code=200,
+    responses= {
+        200: {"description": "Transaction done"},
+        400: {"description": "Error during listing"}
+    }
+)
+async def get_total_count(
+    *,
+    payload: TotalCountPayloadTransaction= Depends(TotalCountPayloadTransaction),
+    skip: int = Query(0),
+    limit: int = Query(99999)
+) -> Optional[TotalCount]:
+
+    totalCount = await transaction_service.get_all(payload=payload.dict(exclude_none=True), skip= skip, limit=limit, route= '/totalcount')
+    return totalCount
 
 @router.get(
     "/{id}",

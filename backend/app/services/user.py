@@ -14,7 +14,7 @@ UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)
 
 class UserService(BaseService[CreateUser, UpdateUser]):
 
-    async def get_by_id(
+    async def get_by_document(
         self, *, document: Union[int, str], route: Optional[str] = ""
     ) -> Any:
         url = f"{self.url}{route}/{document}"

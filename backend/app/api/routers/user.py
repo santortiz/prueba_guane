@@ -42,13 +42,13 @@ async def get_all(
         400: {"description": "Error during get by id"},
     },
 )
-async def get_by_id(
+async def get_by_document(
     *,
     document: int
 ) -> Optional[UserInDb]:
     """
     """
-    user = await user_service.get_by_id(document=document)
+    user = await user_service.get_by_document(document=document)
     return user
 
 @router.post(

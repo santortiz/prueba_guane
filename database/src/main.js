@@ -21,7 +21,7 @@ app.listen(app.get('port'), ()=>{
         console.log('Estas conectado a la BD');
     });
 
-    sequelize.sync({force: settings.FORCE}).then(() => {
+    sequelize.sync({force: false}).then(() => {
         console.log('tables created successfully!');
      }).catch((error) => {
         console.error('Unable to create table: ', error);

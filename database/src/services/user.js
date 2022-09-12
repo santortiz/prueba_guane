@@ -3,16 +3,8 @@ const UserXEnterprise = require('../infra/models/userXEnterprise');
 const BaseService = require('../infra/services/baseService');
 const { checkError } = require('../infra/services/database');
 
-
-const includeModels= [
-    {
-        model: UserXEnterprise,
-        as: 'user_x_enterprises',
-        where: {}
-    }
-]
-
 class UserService extends BaseService {
+
 
     list = async (payload) => {
         let response = {};
@@ -24,18 +16,22 @@ class UserService extends BaseService {
         limit = parseInt(filter.limit, 10);
         delete filter.limit;
 
-        if (filter.enterprise_id) {
-            this.include[0].where['enterprise_id'] = filter.enterprise_id
-        } else {
-            this.include[0].where = {}
-        }
-        
-        delete filter.enterprise_id;
+        let includeModels= [
+            {
+                model: UserXEnterprise,
+                as: 'user_x_enterprises',
+                where: {}
+            }
+        ]
 
+        if (filter.enterprise_id) {
+            includeModels[0].where['enterprise_id'] = filter.enterprise_id
+            delete filter.enterprise_id;
+        }
 
         try {
             await this.schema.findAll({
-                include: this.include,
+                include: includeModels,
                 where: filter,
                 offset: skip,
                 limit,
@@ -43,6 +39,7 @@ class UserService extends BaseService {
                     ['updated_at', 'DESC']
                 ],
             }).then((data) => {
+
                 response= {
                     data,
                     status: 200,
@@ -163,7 +160,7 @@ class UserService extends BaseService {
 
 }
 
-const service = new UserService(User, includeModels);
+const service = new UserService(User);
 module.exports = service;
 
 

@@ -9,11 +9,11 @@ const DB_DIALECT = process.env.DB_DIALECT
 const FORCE = process.env.FORCE
 
 module.exports = {
-    PORT: PORT,
+    PORT:PORT,
     DB_USER:DB_USER,
     DB_PASSWORD:DB_PASSWORD,
     DB_NAME:DB_NAME,
     DB_HOST:DB_HOST,
     DB_DIALECT:DB_DIALECT,
-    FORCE: FORCE
+    FORCE:FORCE
 }

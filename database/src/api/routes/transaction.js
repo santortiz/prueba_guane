@@ -3,6 +3,8 @@ const TransactionService = require('../../services/transaction');
 
 route.get('/', TransactionService.list);
 
+route.get('/totalcount', TransactionService.totalcount);
+
 route.get('/:id', TransactionService.get);
 
 route.post('/', TransactionService.create);

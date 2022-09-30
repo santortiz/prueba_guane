@@ -1,0 +1,24 @@
+version: "3.2"
+
+services:
+  celery:
+    image: celery
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: celery -A app.worker worker -Q prueba-dev
+
+    environment:
+      RABBITMQ_USER: user
+      RABBITMQ_PASSWORD: bitnami
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      C_FORCE_ROOT: true
+      ENVIRONMENT: dev
+
+    networks:
+      - worker
+
+networks:
+  worker:
+    external: true      

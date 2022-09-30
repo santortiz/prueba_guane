@@ -28,6 +28,11 @@ const Transaction = sequelize.define('transaction', {
             key: 'id'
         }
     },
+
+    notificated: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: 0
+    }
 }, {
     timestamps: true,
     createdAt: 'created_at',
@@ -39,7 +44,7 @@ UserXEnterprise.hasMany(Transaction, {
 })
 
 Transaction.belongsTo(UserXEnterprise, {
-    foreignKey: 'user_x_enterprise_id', as: 'user_x_enterprises'
+    foreignKey: 'user_x_enterprise_id', as: 'user_x_enterprise'
 })
 
 module.exports = Transaction;

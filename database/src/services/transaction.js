@@ -8,11 +8,11 @@ const BaseService = require('../infra/services/baseService');
 const includeModels = [
     {
         model: UserXEnterprise,
-        as: 'user_x_enterprises',
+        as: 'user_x_enterprise',
         attributes: ['id'],
         include: [{
             model: User,
-            as: 'users'
+            as: 'user'
         }]
     }
 ]

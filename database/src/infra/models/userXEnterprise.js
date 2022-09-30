@@ -35,7 +35,7 @@ const UserXEnterprise = sequelize.define('userXEnterprise', {
 });
 
 UserXEnterprise.belongsTo(User,{
-    foreignKey: 'user_document', targetKey: 'document', as: 'users'
+    foreignKey: 'user_document', targetKey: 'document', as: 'user'
 });
 
 User.hasMany(UserXEnterprise, {
@@ -44,7 +44,7 @@ User.hasMany(UserXEnterprise, {
 });
 
 UserXEnterprise.belongsTo(Enterprise,{
-    foreignKey: 'enterprise_id', targetKey: 'id', as: 'enterprises'
+    foreignKey: 'enterprise_id', targetKey: 'id', as: 'enterprise'
 });
 
 Enterprise.hasMany(UserXEnterprise,{

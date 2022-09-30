@@ -14,6 +14,10 @@ class Settings(BaseSettings):
     USERNAME: str = Field("root")
     PASSWORD: str = Field("root")
     PRUEBA_DATABASE: str = Field("http://localhost:3000", env="PRUEBA_DATABASE")
+    RABBITMQ_USER: str = Field("user", env="RABBITMQ_USER")
+    RABBITMQ_PASSWORD: str = Field("bitnami", env="RABBITMQ_PASSWORD")
+    RABBITMQ_HOST: str = Field("rabbitmq", env= "RABBITMQ_HOST")
+    RABBITMQ_PORT: int = Field(5672, env="RABBITMQ_PORT")
 
 
 @lru_cache()

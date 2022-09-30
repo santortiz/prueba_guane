@@ -1,0 +1,44 @@
+version: "3.2"
+
+services:
+  rabbitmq:
+    image: bitnami/rabbitmq:latest
+    environment:
+      - RABBITMQ_DISK_FREE_ABSOLUTE_LIMIT=1000000000
+    ports:
+      - 4369:4369
+      - 5672:5672
+      - 25672:25672
+      - 15672:15672
+    expose:
+      - 4369
+      - 5672
+      - 25672
+      - 15672
+    volumes:
+      - rabbitmq_data:/bitnami
+    networks:
+      - worker
+
+  redis:
+    image: bitnami/redis:latest
+    expose:
+      - 6379
+    ports:
+      - 6379:6379
+    environment:
+      - REDIS_PASSWORD=password123
+    volumes:
+      - redis_data:/bitnami/redis/data
+    networks:
+      - worker
+
+networks:
+  worker:
+    external: true
+
+volumes:
+  rabbitmq_data:
+    driver: local
+  redis_data:
+    driver: local

@@ -3,6 +3,13 @@ const UserXEnterprise = require('../infra/models/userXEnterprise');
 const BaseService = require('../infra/services/baseService');
 const { checkError } = require('../infra/services/database');
 
+
+const includeModels=[
+    {
+        model: UserXEnterprise,
+        as: 'user_x_enterprises'
+    }
+]
 class UserService extends BaseService {
 
 
@@ -19,12 +26,12 @@ class UserService extends BaseService {
         let includeModels= [
             {
                 model: UserXEnterprise,
-                as: 'user_x_enterprises',
-                where: {}
+                as: 'user_x_enterprises'
             }
         ]
 
         if (filter.enterprise_id) {
+            includeModels[0].where = {}
             includeModels[0].where['enterprise_id'] = filter.enterprise_id
             delete filter.enterprise_id;
         }
@@ -64,14 +71,21 @@ class UserService extends BaseService {
     };
 
     get = async (req, res) => {
+
         try {
+
             const { document } = req.params;
             await this.schema.findOne({
                 include: this.include,
                 where: { document },
             })
                 .then((data) => {
+                    console.log(data);
                     if (data) {
+
+                        data.dataValues['elements'] = data.user_x_enterprises.length
+
+                        console.log(data);
                         res.status(200).json(data);
                     } else {
                         const response = { success: false, detail: 'Object not found' };
@@ -136,8 +150,7 @@ class UserService extends BaseService {
             })
                 .then((data) => {
                     if (data) {
-                        const response = { success: true, detail: 'Object deleted' };
-                        res.status(201).send(response);
+                        res.status(204).json({});
                     } else {
                         const response = { success: false, detail: 'Object not found' };
                         res.status(404).json(response);
@@ -160,7 +173,7 @@ class UserService extends BaseService {
 
 }
 
-const service = new UserService(User);
+const service = new UserService(User, includeModels);
 module.exports = service;
 
 

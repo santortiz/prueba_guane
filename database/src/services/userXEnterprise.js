@@ -7,11 +7,11 @@ const BaseService = require('./../infra/services/baseService');
 const includeModels = [
     {
         model: User,
-        as: 'users'
+        as: 'user'
     },
     {
         model: Enterprise,
-        as: 'enterprises'
+        as: 'enterprise'
     },
     {
         model: Transaction,

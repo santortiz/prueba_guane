@@ -14,15 +14,23 @@ services:
       - 8005:8005
       - 10000:10000
     environment:
-      - DEBUGGER=False
+      - DEBUGGER=false
       - WEB_APP_VERSION=0.0.0
       - WEP_APP_TITLE=prueba backend
       - WEP_APP_DESCRIPTION= prueba inicio tiempo completo guane
       - ENVIRONMENT=dev
       - PRUEBA_DATABASE=http://app:3000
+      - RABBITMQ_USER=user
+      - RABBITMQ_PASSWORD=bitnami
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      
     networks:
       - proyecto_guane
+      - worker
 
 networks:
   proyecto_guane:
+    external: true
+  worker:
     external: true

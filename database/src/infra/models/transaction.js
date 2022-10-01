@@ -31,7 +31,7 @@ const Transaction = sequelize.define('transaction', {
 
     notificated: {
         type: Sequelize.BOOLEAN,
-        defaultValue: 0
+        defaultValue: 0 //false
     }
 }, {
     timestamps: true,

@@ -6,7 +6,7 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    command: celery -A app.worker worker -Q prueba-dev
+    command: celery -A app.worker worker -Q prueba-dev -B
 
     environment:
       RABBITMQ_USER: user
@@ -15,6 +15,7 @@ services:
       RABBITMQ_PORT: 5672
       C_FORCE_ROOT: true
       ENVIRONMENT: dev
+      PRUEBA_DATABASE: http://app:3000
 
     networks:
       - worker

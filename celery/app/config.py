@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     RABBITMQ_HOST: str = Field(...)
     RABBITMQ_PORT: int = Field(...)
     ENVIRONMENT: str = Field(...)
+    PRUEBA_DATABASE: str = Field(...)
 
 
 settings = Settings()

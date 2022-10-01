@@ -39,6 +39,7 @@ services:
       proyecto_guane:
         aliases:
           - db_service
+      worker:
     volumes:
       - ../:/usr/src/
     ports:
@@ -49,4 +50,6 @@ volumes:
   db:
 networks:
   proyecto_guane:
+    external: true
+  worker:
     external: true

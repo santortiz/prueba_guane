@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 celery = "*"
 pydantic = "*"
+httpx = "*"
+fastapi = "*"
 
 [dev-packages]
 

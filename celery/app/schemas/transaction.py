@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import Optional
+from xmlrpc.client import Boolean
 
 from pydantic import BaseModel
 from enum import Enum
@@ -17,6 +18,12 @@ class BaseTransaction(BaseModel):
 
     class Config:
         use_enum_values=True
+class CreateTransaction(BaseTransaction):
+    count: int
+    type: str
+    user_x_enterprise_id: int
+class UpdateTransaction(BaseTransaction):
+    notificated: Boolean
 
 class UserXTransaction(BaseModel):
     users: UserInDb
